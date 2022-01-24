@@ -73,3 +73,19 @@
 .icon-yanzhengma:before {
   content: "\e618";
 }
+.nav-bar {
+  background-color: #4fc08d;
+}
+.nav-bar .van-nav-bar__title {
+  color: azure;
+}
+.btn {
+  background-color: #4fc08d;
+  border: 1px solid #4fc08d;
+}
+body {
+  background-color: #f5f7f9;
+}
+.nav-bar .iconfont {
+  color: #fff;
+}
