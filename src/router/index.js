@@ -11,6 +11,11 @@ const routes = [
     component: () => import('@/views/login/index.vue')
   },
   {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/search/index.vue')
+  },
+  {
     path: '/',
     component: () => import('@/views/layout/index.vue'),
     children: [

@@ -8,6 +8,7 @@
         size="small"
         round
         icon="search"
+        @click="$router.push('search')"
       >搜索</van-button>
     </van-nav-bar>
     <van-tabs v-model="active" animated swipeable class="tabs">
@@ -15,28 +16,43 @@
         <article-list :article_list="item"></article-list>
       </van-tab>
       <div slot="nav-right" class="placeholder"></div>
-      <div slot="nav-right" class="hamburger-btn">
+      <div slot="nav-right" class="hamburger-btn" @click="showPopup">
         <i class="iconfont icon-gengduo"></i>
       </div>
     </van-tabs>
+    <van-popup close-icon-position="top-left" closeable v-model="show" position="bottom" :style="{ height: '100%' }">
+      <popup-item :channels="chanelList" :active="active" @update="updateList" @m-change="M_change"></popup-item>
+    </van-popup>
   </div>
 </template>
 
 <script>
-import { getChanelList } from '@/api/chanel'
+import { getUserChanelList } from '@/api/chanel'
 import articleList from './components/article-list.vue'
+import PopupItem from './components/popupItem.vue'
 export default {
-  components: { articleList },
+  components: { articleList, PopupItem },
   data () {
     return {
       chanelList: [],
-      active: 0
+      active: 0,
+      show: false
     }
   },
 
   methods: {
+    M_change (index, show = true) {
+      this.active = index
+      this.show = show
+    },
+    updateList (list) {
+      this.chanelList = list
+    },
+    showPopup () {
+      this.show = true
+    },
     async getList () {
-      const { data: { data: { channels } } } = await getChanelList()
+      const { data: { data: { channels } } } = await getUserChanelList()
       this.chanelList = channels
     }
   },
